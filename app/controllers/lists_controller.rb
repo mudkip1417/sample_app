@@ -4,14 +4,12 @@ class ListsController < ApplicationController
   end
 
   def create
-
-    list = List.new(list_params)
-
-  if  list.save
-
+    @list = List.new(list_params)
+  if  @list.save
     redirect_to list_path(list.id)
   else
-    render :new
+    @lists = List.all
+    render :index
   end
 
   def index
@@ -43,5 +41,6 @@ class ListsController < ApplicationController
   def list_params
     params.require(:list).permit(:title, :body, :image)
   end
+end
 
 end
